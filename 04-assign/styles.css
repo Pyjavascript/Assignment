@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  width: 100%;
+  padding: 5px;
+  background: #350B49;
+}
+main {
+
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns:18% 1fr 1fr 1fr;
+  grid-template-rows: calc(35%-5px) calc(20%-5px) calc(20%-5px) calc(25%-5px);
+  grid-template-areas:
+    "left-top top-center-left top-center-right right-top"
+    "left-top center center right-top"
+    "left-middle center center right-bottom "
+    "left-bottom left-bottom center-bottom-right  right-bottom ";
+    gap:5px;
+}
+.left-top {
+  background-image:url('https://www.yellowbrick.co/wp-content/uploads/2023/08/fashion_blog_menswear-1536x864.png');
+  background-size:cover;
+  background-position: 80% 30%;
+  grid-area: left-top;
+  border-radius: 20px;
+  filter: brightness(110%) contrast(110%);
+}
+.left-middle {
+  background:#fefefe;
+  grid-area: left-middle;
+  border-radius: 20px;
+}
+.left-bottom {
+  background:#ebb0a2;
+  grid-area: left-bottom;
+  border-radius: 20px;
+}
+.top-center-left {
+  background: #fed703;
+  grid-area: top-center-left;
+  border-radius: 20px;
+}
+.top-center-right {
+  background:#fdfdfd;
+  grid-area: top-center-right;
+  border-radius: 20px;
+}
+.center {
+  background:#fdf8e3;
+  grid-area: center;
+  border-radius: 20px;
+  position: relative
+}
+.center img{
+
+     height: 50%;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
+.center-bottom-right {
+  background-color: #c7b7b3;
+  grid-area: center-bottom-right;
+  border-radius: 20px;
+}
+.right-top {
+  background-color:#fefefe;
+  grid-area: right-top;
+  border-radius: 20px;
+}
+.right-bottom {
+  background-color:#edb2a4;
+  grid-area: right-bottom;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.right-bottom img{
+    height: 120%;
+    position: absolute;
+    left: 50%;
+    top:5%;
+    transform: translate(-50%,0%);
+}
