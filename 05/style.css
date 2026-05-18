@@ -1,21 +1,17 @@
 * {
   margin: 0;
   padding: 0;
-  /* background: green;
-  border: solid 2px #fff; */
 }
 body {
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
-  /* font-family: serif;  for main H1*/
 }
 main {
   padding: 20px 60px;
   display: flex;
   flex-direction: column;
   gap: 50px;
-  /* font-family: sans-serif; */
   font-family:
     system-ui,
     -apple-system,
@@ -179,7 +175,6 @@ header p {
   margin-top: 3px;
 }
 .trending-list {
-  /* padding: 10px 40px; */
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -187,8 +182,6 @@ header p {
   overflow: hidden;
   width: 100%;
   position: relative;
-  /* background-color: red; */
-  /* position: relative; */
 }
 .trending-list h4 {
   color: #3a3546;
@@ -229,7 +222,6 @@ header p {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  /* background-color: aqua; */
 }
 .popular ion-icon {
   margin-top: 5px;
@@ -275,7 +267,6 @@ span:nth-child(3) {
   height: 2px;
 }
 .category {
-  /* background-color: #ea4c89; */
   width: 100%;
   position: absolute;
   top: 20px;
@@ -301,13 +292,11 @@ span:nth-child(3) {
 }
 
 .projects {
-  /* width: 80vw; */
   display: flex;
   gap: 10px;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  /* background: #ea4c89; */
 }
 .project {
   width: 24%;
@@ -478,15 +467,11 @@ span:nth-child(3) {
 }
 
 @media (max-width: 768px) {
-  body {
-    /* background-color: blueviolet; */
-  }
   main {
     padding: 10px 20px;
     
   }
   .hamburger-menu {
-    /* background: red; */
     display: flex;
     flex-direction: column;
     gap: 3px;
