@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager Pro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <div class="icon">
+          <ion-icon name="checkbox-outline"></ion-icon>
+        </div>
+        <h1>Task Manager Pro</h1>
+      </div>
+      <div class="links">
+        <div class="link-icon dashboard link-active" id="nav-dashboard">
+          <ion-icon name="list-outline"></ion-icon>
+        </div>
+        <div class="link-icon setting" id="nav-settings">
+          <ion-icon name="settings-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="add-transaction" id="open-modal-btn">
+        <div class="add">
+          <ion-icon name="add-outline"></ion-icon>
+          <p>Create Task</p>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <section id="dashboard-view" class="view-section">
+        <div class="summary-grid">
+          <div class="card balance-card">
+            <h3>Total Tasks</h3>
+            <p class="amount" id="total-tasks-count">0</p>
+          </div>
+          <div class="card income-card">
+            <h3>Completed</h3>
+            <p class="amount" id="completed-tasks-count">0</p>
+          </div>
+          <div class="card expense-card">
+            <h3>Pending</h3>
+            <p class="amount" id="pending-tasks-count">0</p>
+          </div>
+        </div>
+
+        <div class="dashboard-layout">
+          <div class="card chart-container">
+            <h3>Task Breakdown</h3>
+            <div class="canvas-wrapper">
+              <canvas id="taskBreakdownChart"></canvas>
+            </div>
+          </div>
+
+          <div class="card transactions-container">
+            <div class="panel-header">
+              <h3>Task Boards</h3>
+              <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+              </div>
+            </div>
+            <ul class="transaction-list" id="task-list-ul"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="settings-view" class="view-section hidden">
+        <div class="card settings-card">
+          <h2>App Preferences</h2>
+          <hr />
+          <form id="settings-form" onsubmit="event.preventDefault();">
+            <div class="form-group toggle-group">
+              <label>Appearance</label>
+              <button type="button" id="dark-mode-toggle" class="btn-secondary">
+                <ion-icon name="moon-outline"></ion-icon> Toggle Dark Mode
+              </button>
+            </div>
+            <div class="form-group danger-zone">
+              <label>System Controls</label>
+              <button type="button" id="reset-data-btn" class="btn-danger">
+                <ion-icon name="refresh-outline"></ion-icon> One-Click System Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-overlay hidden" id="task-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="modal-title">New Task Entry</h3>
+          <button id="close-modal-btn" class="close-btn"><ion-icon name="close-outline"></ion-icon></button>
+        </div>
+        <form id="task-form">
+          <input type="hidden" id="edit-task-id" value="" />
+          <div class="form-group">
+            <label for="task-title-input">Task Title</label>
+            <input type="text" id="task-title-input" required />
+          </div>
+          <div class="form-group">
+            <label for="task-category-select">Category Dropdown</label>
+            <select id="task-category-select">
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary" id="submit-form-btn">Add Task</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
