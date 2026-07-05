@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinTrack Pro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <div class="icon">
+          <ion-icon name="wallet-outline"></ion-icon>
+        </div>
+        <h1>FinTrack Pro</h1>
+      </div>
+
+      <div class="links">
+        <div class="link-icon dashboard link-active" id="nav-dashboard">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <div class="link-icon setting" id="nav-settings">
+          <ion-icon name="settings-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="add-transaction" id="open-modal-btn">
+        <div class="add">
+          <ion-icon name="add-outline"></ion-icon>
+          <p>Add Transaction</p>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      
+      <section id="dashboard-view" class="view-section">
+        <div class="summary-grid">
+          <div class="card balance-card">
+            <h3>Total Balance</h3>
+            <p class="amount" id="total-balance">$0.00</p>
+          </div>
+          <div class="card income-card">
+            <h3>Income</h3>
+            <p class="amount" id="total-income">+$0.00</p>
+          </div>
+          <div class="card expense-card">
+            <h3>Expenses</h3>
+            <p class="amount" id="total-expense">-$0.00</p>
+          </div>
+        </div>
+
+        <div class="dashboard-layout">
+          <div class="card chart-container">
+            <h3>Cash Flow Visualization</h3>
+            <div class="canvas-wrapper">
+              <canvas id="cashFlowChart"></canvas>
+            </div>
+          </div>
+
+          <div class="card transactions-container">
+            <div class="panel-header">
+              <h3>Recent Transactions</h3>
+              <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="income">Income</button>
+                <button class="filter-btn" data-filter="expense">Expense</button>
+              </div>
+            </div>
+            
+            <ul class="transaction-list" id="transaction-list-ul"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="settings-view" class="view-section hidden">
+        <div class="card settings-card">
+          <h2>Profile & App Preferences</h2>
+          <hr />
+          <form id="settings-form">
+            <div class="form-group">
+              <label for="username">User Name</label>
+              <input type="text" id="username" value="Manpreet Singh" />
+            </div>
+            <div class="form-group">
+              <label for="currency-select">Preferred Currency</label>
+              <select id="currency-select">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="INR" selected>INR (₹)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
+            </div>
+            <div class="form-group toggle-group">
+              <label>Appearance</label>
+              <button type="button" id="dark-mode-toggle" class="btn-secondary">
+                <ion-icon name="moon-outline"></ion-icon> Toggle Dark Mode
+              </button>
+            </div>
+            <div class="form-group danger-zone">
+              <label>System Controls</label>
+              <button type="button" id="reset-data-btn" class="btn-danger">
+                <ion-icon name="refresh-outline"></ion-icon> One-Click System Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="modal-overlay hidden" id="transaction-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>New Transaction Entry</h3>
+          <button id="close-modal-btn" class="close-btn"><ion-icon name="close-outline"></ion-icon></button>
+        </div>
+        <form id="transaction-form">
+          <div class="form-group">
+            <label for="tx-description">Description / Source</label>
+            <input type="text" id="tx-description" placeholder="e.g., Grocery Shopping" required />
+          </div>
+          <div class="form-group">
+            <label for="tx-amount">Amount</label>
+            <input type="number" id="tx-amount" min="0.01" step="0.01" placeholder="0.00" required />
+          </div>
+          <div class="form-group">
+            <label for="tx-type">Transaction Type</label>
+            <select id="tx-type">
+              <option value="income">Income (+)</option>
+              <option value="expense" selected>Expense (-)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary">Add Entry</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

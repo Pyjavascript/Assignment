@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg-app: #f4f6f9;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --accent: #4f46e5;
+    --accent-hover: #4338ca;
+    --income: #10b981;
+    --expense: #f43f5e;
+    --border: #e2e8f0;
+    --radius: 12px;
+}
+
+body.dark-theme {
+    --bg-app: #0f172a;
+    --bg-card: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Manrope", sans-serif;
+    transition: background-color 0.25s, border-color 0.25s;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+nav {
+    background: var(--bg-card);
+    padding: 0.85rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+nav, .links, .add, .logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    gap: 0.6rem;
+}
+
+.logo .icon {
+    font-size: 1.6rem;
+    color: var(--accent);
+    display: flex;
+}
+
+.logo h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.links {
+    gap: 0.5rem;
+    background: var(--bg-app);
+    padding: 0.25rem;
+    border-radius: 30px;
+}
+
+.links .link-icon {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    display: flex;
+    transition: all 0.2s ease;
+}
+
+.links .link-icon:hover {
+    color: var(--text-main);
+}
+
+.links .link-active {
+    background: var(--bg-card);
+    color: var(--accent);
+}
+
+.add-transaction {
+    background: var(--accent);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.15s ease, background 0.2s;
+}
+
+.add-transaction:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.add-transaction .add {
+    gap: 0.4rem;
+}
+
+.add-transaction ion-icon {
+    font-size: 1.2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.view-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+}
+
+.card h3 {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.summary-grid .amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.balance-card .amount { color: var(--text-main); }
+.income-card .amount { color: var(--income); }
+.expense-card .amount { color: var(--expense); }
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
+}
+
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+    height: 280px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.panel-header h3 { margin: 0; }
+
+.filters {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--bg-app);
+    padding: 0.2rem;
+    border-radius: 8px;
+}
+
+.filter-btn {
+    border: none;
+    background: transparent;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.filter-btn.active {
+    background: var(--bg-card);
+    color: var(--text-main);
+}
+
+.transaction-list {
+    list-style: none;
+    max-height: 290px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-right: 0.25rem;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--bg-app);
+    border-left: 4px solid var(--text-muted);
+}
+
+.transaction-item.income { border-left-color: var(--income); }
+.transaction-item.expense { border-left-color: var(--expense); }
+
+.tx-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tx-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.tx-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.tx-amount-action {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.tx-val {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.income .tx-val { color: var(--income); }
+.expense .tx-val { color: var(--expense); }
+
+.delete-tx-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.delete-tx-btn:hover {
+    color: var(--expense);
+    background: rgba(244, 63, 94, 0.1);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-app);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: var(--accent);
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary { background: var(--border); color: var(--text-main); }
+.btn-danger { background: rgba(244, 63, 94, 0.1); color: var(--expense); }
+.btn-danger:hover { background: var(--expense); color: white; }
+
+.settings-card {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+.settings-card h2 { font-size: 1.3rem; margin-bottom: 0.5rem;}
+.settings-card hr { border: 0; border-top: 1px solid var(--border); margin-bottom: 1.5rem;}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 420px;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+}
+
+@media (max-width: 850px) {
+    nav {
+        padding: 0.85rem 1rem;
+    }
+    .logo h1 {
+        display: none;
+    }
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    .container {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+}
