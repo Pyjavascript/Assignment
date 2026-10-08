@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A clean single-page productivity dashboard built with HTML, CSS and JavaScript.">
+    <title>Productivity Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <button class="brand" id="homeBtn" type="button" aria-label="Go to dashboard">
+                <span class="brand-mark">F</span>
+                <span>FocusBoard</span>
+            </button>
+
+            <div class="topbar-right">
+                <div class="datetime" aria-live="polite">
+                    <span id="currentTime">--:--:--</span>
+                    <span id="currentDate">Loading date...</span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+                    <span id="themeIcon">☾</span>
+                    <span id="themeLabel">Dark</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <section class="dashboard-view" id="dashboardView">
+                <div class="hero">
+                    <div>
+                        <p class="eyebrow" id="greeting">GOOD DAY</p>
+                        <h1>Make today <span>count.</span></h1>
+                        <p class="hero-copy">Everything you need to plan, focus, and finish your day.</p>
+                    </div>
+                    <div class="weather-card compact" id="weatherCard">
+                        <div class="weather-icon" id="weatherIcon">☁</div>
+                        <div>
+                            <p class="weather-location" id="weatherLocation">Getting weather...</p>
+                            <strong id="weatherTemp">--°</strong>
+                            <p id="weatherCondition">Please allow location access</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <button class="feature-card todo-card" data-feature="todo" type="button">
+                        <span class="card-icon">✓</span>
+                        <span class="card-content">
+                            <span class="card-label">TASKS</span>
+                            <strong>Todo List</strong>
+                            <span class="card-meta" id="todoSummary">0 pending tasks</span>
+                        </span>
+                        <span class="card-arrow">→</span>
+                    </button>
+
+                    <button class="feature-card planner-card" data-feature="planner" type="button">
+                        <span class="card-icon">▦</span>
+                        <span class="card-content">
+                            <span class="card-label">PLAN</span>
+                            <strong>Daily Planner</strong>
+                            <span class="card-meta">Organize your day</span>
+                        </span>
+                        <span class="card-arrow">→</span>
+                    </button>
+
+                    <button class="feature-card pomodoro-card" data-feature="pomodoro" type="button">
+                        <span class="card-icon">◷</span>
+                        <span class="card-content">
+                            <span class="card-label">FOCUS</span>
+                            <strong>Pomodoro</strong>
+                            <span class="card-meta" id="pomodoroSummary">25:00 work session</span>
+                        </span>
+                        <span class="card-arrow">→</span>
+                    </button>
+
+                    <button class="feature-card quote-card" data-feature="quote" type="button">
+                        <span class="card-icon">“</span>
+                        <span class="card-content">
+                            <span class="card-label">MOTIVATION</span>
+                            <strong>Daily Quote</strong>
+                            <span class="card-meta">Get a fresh thought</span>
+                        </span>
+                        <span class="card-arrow">→</span>
+                    </button>
+
+                    <button class="feature-card goals-card" data-feature="goals" type="button">
+                        <span class="card-icon">◎</span>
+                        <span class="card-content">
+                            <span class="card-label">TODAY</span>
+                            <strong>Daily Goals</strong>
+                            <span class="card-meta" id="goalSummary">0 of 0 completed</span>
+                        </span>
+                        <span class="card-arrow">→</span>
+                    </button>
+
+                    <div class="feature-card weather-panel">
+                        <span class="card-icon">☼</span>
+                        <span class="card-content">
+                            <span class="card-label">WEATHER</span>
+                            <strong id="weatherPanelTemp">--°</strong>
+                            <span class="card-meta" id="weatherPanelDetails">Loading conditions...</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="quick-strip">
+                    <div class="quick-stat">
+                        <span class="stat-number" id="quickTodoCount">0</span>
+                        <span>pending tasks</span>
+                    </div>
+                    <div class="quick-divider"></div>
+                    <div class="quick-stat">
+                        <span class="stat-number" id="quickGoalProgress">0%</span>
+                        <span>daily goal progress</span>
+                    </div>
+                    <div class="quick-divider"></div>
+                    <div class="quick-stat">
+                        <span class="stat-number" id="quickPlanCount">0</span>
+                        <span>planned slots</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feature-view hidden" id="featureView">
+                <div class="feature-header">
+                    <button class="back-button" id="backBtn" type="button">← Dashboard</button>
+                    <div>
+                        <p class="eyebrow" id="featureEyebrow">FEATURE</p>
+                        <h2 id="featureTitle">Feature</h2>
+                    </div>
+                </div>
+
+                <div class="feature-body" id="featureBody"></div>
+            </section>
+        </main>
+    </div>
+
+    <template id="todoTemplate">
+        <div class="feature-layout">
+            <div class="feature-main">
+                <div class="input-row">
+                    <input id="todoInput" class="text-input" type="text" placeholder="What needs to get done?"
+                        maxlength="120">
+                    <button id="addTodoBtn" class="primary-btn" type="button">Add Task</button>
+                </div>
+                <div class="list-toolbar">
+                    <span id="todoCount">0 tasks</span>
+                    <button id="clearCompletedBtn" class="text-btn" type="button">Clear completed</button>
+                </div>
+                <div id="todoList" class="item-list"></div>
+            </div>
+            <aside class="side-panel">
+                <span class="panel-label">HOW IT WORKS</span>
+                <h3>Keep the list honest.</h3>
+                <p>Mark important work with the star, complete finished tasks, and delete anything you no longer need.
+                </p>
+                <div class="mini-stat"><strong id="todoImportantCount">0</strong><span>important</span></div>
+            </aside>
+        </div>
+    </template>
+
+    <template id="plannerTemplate">
+        <div class="planner-wrap">
+            <div class="planner-head">
+                <div>
+                    <span class="panel-label">TODAY'S PLAN</span>
+                    <h3>Give every hour a job.</h3>
+                </div>
+                <span class="save-hint">Saved automatically</span>
+            </div>
+            <div id="plannerList" class="planner-list"></div>
+        </div>
+    </template>
+
+    <template id="pomodoroTemplate">
+        <div class="pomodoro-layout">
+            <div class="timer-panel">
+                <span class="panel-label" id="pomodoroSessionLabel">WORK SESSION</span>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <p id="timerStatus">Ready when you are.</p>
+                <div class="timer-controls">
+                    <button id="startTimerBtn" class="primary-btn" type="button">Start</button>
+                    <button id="pauseTimerBtn" class="secondary-btn" type="button">Pause</button>
+                    <button id="resetTimerBtn" class="secondary-btn" type="button">Reset</button>
+                </div>
+            </div>
+            <aside class="side-panel">
+                <span class="panel-label">POMODORO</span>
+                <h3>Focus in one clean block.</h3>
+                <p>Start a 25-minute work session. When it ends, you'll get a short break prompt.</p>
+                <div class="session-note"><strong>25</strong><span>minutes / work</span></div>
+            </aside>
+        </div>
+    </template>
+
+    <template id="quoteTemplate">
+        <div class="quote-layout">
+            <div class="quote-panel">
+                <span class="panel-label">MOTIVATION</span>
+                <blockquote id="quoteText">Loading a thought worth keeping...</blockquote>
+                <p id="quoteAuthor">—</p>
+                <button id="newQuoteBtn" class="primary-btn" type="button">New Quote</button>
+            </div>
+            <aside class="side-panel">
+                <span class="panel-label">FETCH API</span>
+                <h3>Fresh, not static.</h3>
+                <p>The quote is requested from a public API with a loading state and a local fallback when the network
+                    is unavailable.</p>
+            </aside>
+        </div>
+    </template>
+
+    <template id="goalsTemplate">
+        <div class="goals-layout">
+            <div class="feature-main">
+                <div class="goal-progress">
+                    <div>
+                        <span class="panel-label">TODAY'S PROGRESS</span>
+                        <strong id="goalProgressText">0 of 0 completed</strong>
+                    </div>
+                    <div class="progress-track"><span id="goalProgressBar"></span></div>
+                </div>
+                <div class="input-row">
+                    <input id="goalInput" class="text-input" type="text" placeholder="Add a goal for today..."
+                        maxlength="100">
+                    <button id="addGoalBtn" class="primary-btn" type="button">Add Goal</button>
+                </div>
+                <div id="goalList" class="item-list"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="weatherTemplate">
+        <div class="weather-detail-layout">
+            <div class="weather-large">
+                <div class="weather-icon large" id="detailWeatherIcon">☁</div>
+                <div>
+                    <span class="panel-label">CURRENT WEATHER</span>
+                    <h3 id="detailWeatherLocation">Your location</h3>
+                    <strong id="detailWeatherTemp">--°</strong>
+                    <p id="detailWeatherCondition">Loading...</p>
+                </div>
+            </div>
+            <div class="weather-metrics">
+                <div class="metric-box"><span>Humidity</span><strong id="weatherHumidity">--%</strong></div>
+                <div class="metric-box"><span>Wind</span><strong id="weatherWind">-- km/h</strong></div>
+                <div class="metric-box"><span>Precipitation</span><strong id="weatherRain">-- mm</strong></div>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
